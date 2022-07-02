@@ -39,10 +39,13 @@
 
     self.Barra.prototype = {
         abajo: function(){
-            this.y += velocidad;
+            this.y += this.velocidad;
         },
         arriba: function(){
-            this.y -= velocidad;
+            this.y -= this.velocidad;
+        },
+        toString: function(){
+            return "x: " + this.x + " y: " + this.y; 
         }
     }
 
@@ -84,9 +87,29 @@
 
 })();//Fin clase tableroVista
 
+//Declaro e instancio el Tablero y sus "manejadores"
+var unTablero = new Tablero(400, 800);
+var barraUno = new Barra(20, 100, 20, 100, unTablero);
+var barraDos = new Barra(700, 100, 20, 100, unTablero);
+var canvas = document.getElementById('canvas');
+var unTableroVista = new TableroVista(canvas,unTablero);
+
 //Agrego evento ke permite el movimiento de las barras.
 window.addEventListener("keydown", function(ev){
-    console.log(ev.keyCode);
+    //Control de la barra Derecha
+    if(ev.keyCode==38){
+        barraUno.arriba();
+    }
+    if(ev.keyCode==40){
+        barraUno.abajo();
+    }
+    //Control de la barra Izquierda
+    if(ev.keyCode==87){
+        barraDos.arriba();
+    }
+    if(ev.keyCode==83){
+        barraDos.abajo();
+    }
 });
 
 //Ejecuto el main cuando "entro" en la ventana.
@@ -94,11 +117,5 @@ window.addEventListener("load", main);
 
 
 function main(){
-    //Declaro e instancio el Tablero y sus "manejadores"
-    var unTablero = new Tablero(400, 800);
-    var unaBarra = new Barra(20, 100, 20, 100, unTablero);
-    var unaBarra = new Barra(700, 100, 20, 100, unTablero);
-    var canvas = document.getElementById('canvas');
-    var unTableroVista = new TableroVista(canvas,unTablero);
     unTableroVista.dibujar();
 }//fin main

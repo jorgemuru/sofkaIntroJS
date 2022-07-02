@@ -33,15 +33,16 @@
         this.tablero = pTablero;
         this.figura = "rectangulo";
         this.tablero.barras.push(this);
+        this.velocidad = 10;
 
     }
 
     self.Barra.prototype = {
         abajo: function(){
-
+            this.y += velocidad;
         },
         arriba: function(){
-
+            this.y -= velocidad;
         }
     }
 
@@ -73,7 +74,7 @@
         if(pElemento != null && pElemento.hasOwnProperty("figura")){
             switch(pElemento.figura){
                 case "rectangulo":
-                    pContexto.fillRect(pElemento.x,pElemento.y,pElemento.ancho, pElemento.alto);
+                    pContexto.fillRect(pElemento.x, pElemento.y, pElemento.ancho, pElemento.alto);
                     break;
             }
         }
@@ -83,14 +84,20 @@
 
 })();//Fin clase tableroVista
 
+//Agrego evento ke permite el movimiento de las barras.
+window.addEventListener("keydown", function(ev){
+    console.log(ev.keyCode);
+});
+
 //Ejecuto el main cuando "entro" en la ventana.
-window.addEventListener("load", main)
+window.addEventListener("load", main);
+
 
 function main(){
     //Declaro e instancio el Tablero y sus "manejadores"
-    var unTablero = new Tablero(800, 400);
-    var barraIzq = new Barra(20, 100, 20, 100, unTablero);
-    var barraDer = new Barra(20, 700, 20, 100, unTablero);
+    var unTablero = new Tablero(400, 800);
+    var unaBarra = new Barra(20, 100, 20, 100, unTablero);
+    var unaBarra = new Barra(700, 100, 20, 100, unTablero);
     var canvas = document.getElementById('canvas');
     var unTableroVista = new TableroVista(canvas,unTablero);
     unTableroVista.dibujar();

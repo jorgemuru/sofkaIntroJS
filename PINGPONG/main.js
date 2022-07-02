@@ -82,7 +82,11 @@
                 pContexto.fillRect(pElemento.x, pElemento.y, pElemento.ancho, pElemento.alto);
                 break;
             case "circulo":
+                pContexto.beginPath();
                 pContexto.arc(pElemento.x, pElemento.y, radius, 0,7);
+                pContexto.fill();
+                pContexto.closePath();
+                break;
         }
     }   
 })();//Fin clase tableroVista

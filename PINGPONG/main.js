@@ -77,16 +77,14 @@
     }
     //Funcion para dibujar los elementos en el Tablero
     function dibujar(pContexto, pElemento){
-        if(pElemento != null && pElemento.hasOwnProperty("figura")){
-            switch(pElemento.figura){
-                case "rectangulo":
-                    pContexto.fillRect(pElemento.x, pElemento.y, pElemento.ancho, pElemento.alto);
-                    break;
-            }
+        switch(pElemento.figura){
+            case "rectangulo":
+                pContexto.fillRect(pElemento.x, pElemento.y, pElemento.ancho, pElemento.alto);
+                break;
+            case "circulo":
+                pContexto.arc(pElemento.x, pElemento.y, radius, 0,7);
         }
     }   
-        
-
 })();//Fin clase tableroVista
 
 //Declaro e instancio el Tablero y sus "manejadores"

@@ -7,7 +7,7 @@
         this.jugando = false;
         this.finJuego = false;
         this.barras = [];
-        this.pelota = null;
+        //this.pelota = null;
     }
 
     //Defino los metodos de la clase tablero
@@ -15,7 +15,7 @@
         //Getter y setter
         get elements(){
             var elements = this.barras;
-            elements.push(this.pelota);
+            //elements.push(this.pelota);
 
             return elements;
         }
@@ -65,6 +65,9 @@
 
     //Declaro metodos de la clase
     self.TableroVista.prototype = {
+        limpiar: function(){
+            this.contexto.clearRect(0, 0, this.tablero.ancho, this.tablero.alto);
+        },
         dibujar: function(){
             for(var i = this.tablero.elements.length -1; i >= 0; i--){
                 var unElemento = this.tablero.elements[i];
@@ -81,7 +84,6 @@
                     break;
             }
         }
-
     }   
         
 
@@ -95,7 +97,8 @@ var canvas = document.getElementById('canvas');
 var unTableroVista = new TableroVista(canvas,unTablero);
 
 //Agrego evento ke permite el movimiento de las barras.
-window.addEventListener("keydown", function(ev){
+document.addEventListener("keydown", function(ev){
+    ev.preventDefault();
     //Control de la barra Derecha
     if(ev.keyCode==38){
         barraUno.arriba();
@@ -113,9 +116,12 @@ window.addEventListener("keydown", function(ev){
 });
 
 //Ejecuto el main cuando "entro" en la ventana.
-window.addEventListener("load", main);
+self.addEventListener("load", controller);
 
+window.requestAnimationFrame(controller);
 
-function main(){
+function controller(){
+    unTableroVista.limpiar();
     unTableroVista.dibujar();
-}//fin main
+    window.requestAnimationFrame(controller);
+}//fin controller
